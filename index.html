@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adiviná la Palabra</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Pantalla de Inicio: Selección de Categorías -->
+    <div id="screen-menu" class="screen">
+        <h1>Adiviná la Palabra</h1>
+        <p>Elegí una categoría para empezar:</p>
+        <div id="categories-container" class="grid-categorias">
+            <!-- Las categorías se cargan desde JS -->
+        </div>
+    </div>
+
+    <!-- Pantalla de Juego -->
+    <div id="screen-game" class="screen hidden">
+        <div class="hud">
+            <span id="timer">60</span>s
+        </div>
+        <div class="word-container">
+            <h2 id="current-word">¡Preparate!</h2>
+        </div>
+        <p class="instruccion">📱 Abajo = Correcto | Arriba = Pasar</p>
+        <button id="btn-start-round" class="btn-principal">¡Empezar a Jugar!</button>
+    </div>
+
+    <!-- Pantalla de Resultados -->
+    <div id="screen-results" class="screen hidden">
+        <h1>¡Tiempo cumplido!</h1>
+        <div class="score-card">
+            <p>Puntaje Final: <span id="final-score">0</span></p>
+        </div>
+        <div class="results-lists">
+            <div class="list-box correctas">
+                <h3>✅ Adivinadas</h3>
+                <ul id="list-correctas"></ul>
+            </div>
+            <div class="list-box incorrectas">
+                <h3>❌ Pasadas</h3>
+                <ul id="list-incorrectas"></ul>
+            </div>
+        </div>
+        <button id="btn-restart" class="btn-principal">Jugar de nuevo</button>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
