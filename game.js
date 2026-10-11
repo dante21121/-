@@ -120,14 +120,13 @@ btnStartRound.onclick = () => {
 
 function siguientePalabra() {
     if (palabrasDisponibles.length === 0) {
-        // Recargar si se acaban
         palabrasDisponibles = [...categoriaSeleccionada.palabras].sort(() => Math.random() - 0.5);
     }
     palabraActual = palabrasDisponibles.pop();
     currentWordEl.innerText = palabraActual;
 }
 
-// Control por Movimiento de Celular (Acelerómetro)
+// Control por Movimiento de Celular (Acelerómetro optimizado a ~30 grados)
 function solicitarPermisoSensores() {
     if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
         DeviceMotionEvent.requestPermission()
@@ -141,37 +140,44 @@ function solicitarPermisoSensores() {
     }
 }
 
-let cooldown = false;
-function manejarMovimiento(event) {
-    if (!juegoActivo || cooldown) return;
+let bloqueado = false; // Bloqueo para el tiempo de espera y evitar rebotes
 
-    // Aceleración en el eje Y (vertical al sostener el celu de frente)
+function manejarMovimiento(event) {
+    if (!juegoActivo || bloqueado) return;
+
+    // Con el celular en la frente (vertical), la gravedad sobre el eje Y ronda los 9.8 m/s².
+    // 30 grados de inclinación equivalen aproximadamente a un cambio donde Y pasa a ser menor a ~5 o mayor a ~13.
     const accelerationY = event.accelerationIncludingGravity.y;
 
-    // Inclinación hacia abajo (Acertó) -> valor negativo o positivo según cómo se mire, ajustado estándar:
-    if (accelerationY < -7) { 
-        // Movimiento hacia abajo
+    if (accelerationY < 5) { 
+        // Inclinación hacia abajo (Correcto)
         adivinadas.push(palabraActual);
-        triggerFeedback('correcto');
-        siguientePalabra();
-        activarCooldown();
-    } else if (accelerationY > 7) {
-        // Movimiento hacia arriba (Pasó)
+        triggerFeedback('correcto', '¡CORRECTO!');
+        bloquearTemporalmente();
+    } else if (accelerationY > 13) {
+        // Inclinación hacia arriba (Pasar / Incorrecto)
         incorrectas.push(palabraActual);
-        triggerFeedback('incorrecto');
-        siguientePalabra();
-        activarCooldown();
+        triggerFeedback('incorrecto', '¡PASASTE!');
+        bloquearTemporalmente();
     }
 }
 
-function activarCooldown() {
-    cooldown = true;
-    setTimeout(() => { cooldown = false; }, 800); // Evita doble registro rápido
+function bloquearTemporalmente() {
+    bloqueado = true;
+    
+    // Espera de 0.75 segundos (750 ms) antes de pasar a la siguiente palabra
+    setTimeout(() => {
+        if (juegoActivo) {
+            siguientePalabra();
+            currentWordEl.style.color = '#ffffff';
+            bloqueado = false;
+        }
+    }, 750);
 }
 
-function triggerFeedback(tipo) {
+function triggerFeedback(tipo, mensajeTemporal) {
+    currentWordEl.innerText = mensajeTemporal;
     currentWordEl.style.color = tipo === 'correcto' ? '#2ecc71' : '#e74c3c';
-    setTimeout(() => { currentWordEl.style.color = '#ffffff'; }, 300);
 }
 
 function terminarJuego() {
