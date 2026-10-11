@@ -1,0 +1,166 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #1a1a2e;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.screen {
+    width: 100%;
+    max-width: 480px;
+    height: 100vh;
+    max-height: 850px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    background-color: #16213e;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.hidden {
+    display: none !important;
+}
+
+h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #e94560;
+}
+
+p {
+    text-align: center;
+    color: #b2bec3;
+}
+
+/* Menú de Categorías */
+.grid-categorias {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    overflow-y: auto;
+    margin: 15px 0;
+    max-height: 60vh;
+    padding-right: 5px;
+}
+
+.btn-categoria {
+    background-color: #0f3460;
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-categoria:active {
+    transform: scale(0.95);
+    background-color: #e94560;
+}
+
+/* Pantalla de Juego */
+.hud {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #e94560;
+}
+
+.word-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background: #0f3460;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+#current-word {
+    font-size: 2.5rem;
+    word-break: break-word;
+}
+
+.instruccion {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.btn-principal {
+    background-color: #e94560;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-principal:active {
+    opacity: 0.8;
+}
+
+/* Resultados */
+.score-card {
+    text-align: center;
+    font-size: 1.2rem;
+    background: #0f3460;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.score-card span {
+    color: #e94560;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.results-lists {
+    display: flex;
+    gap: 10px;
+    height: 40vh;
+    margin: 15px 0;
+}
+
+.list-box {
+    flex: 1;
+    background: #0f3460;
+    border-radius: 10px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.list-box h3 {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.list-box ul {
+    list-style: none;
+    font-size: 0.85rem;
+}
+
+.list-box li {
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
